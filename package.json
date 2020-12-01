@@ -1,7 +1,7 @@
 {
   "name": "vue-movies-db",
-  "description": "A simple app to show popular movies list, and search feature",
   "version": "0.1.0",
+  "description": "A simple app to show popular movies list, and search feature",
   "author": "Mohssine Aboutaj",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -16,13 +16,15 @@
     "roboto-fontface": "*",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
-    "vuetify": "^2.2.11"
+    "vuetify": "^2.2.11",
+    "vuex": "^3.4.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",
     "@vue/cli-plugin-pwa": "~4.2.0",
     "@vue/cli-plugin-router": "~4.2.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.2.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",

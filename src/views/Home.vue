@@ -21,47 +21,53 @@
         md="4"
         lg="3"
       >
-        <div class="primary pa-2">
-          <v-card class="mx-auto">
-            <v-img height="250" :src="testIMG"> </v-img>
+        <v-card class="mx-auto" elevation="5">
+          <v-img :height="300" :src="getPoster(item.poster_path)"> </v-img>
 
-            <v-card-title primary-title>{{ item.title }}</v-card-title>
+          <v-card-title primary-title>{{ item.title }}</v-card-title>
 
-            <v-subheader>{{ item.release_date }}</v-subheader>
+          <v-subheader>{{ item.release_date }}</v-subheader>
 
-            <v-card-text>
-              <v-row align="center" class="mx-0">
-                <v-rating
-                  :value="item.vote_average"
-                  color="amber"
-                  dense
-                  half-increments
-                  readonly
-                  size="14"
-                ></v-rating>
-              </v-row>
-            </v-card-text>
+          <v-card-text>
+            <v-row align="center" class="mx-0">
+              <v-rating
+                :value="item.vote_average"
+                color="amber"
+                dense
+                half-increments
+                readonly
+                size="14"
+              ></v-rating>
+            </v-row>
+          </v-card-text>
 
-            <v-card-actions class="pa-0">
-              <v-btn color="primary" dark block>
-                <span class="mx-2">show details</span>
-                <v-icon>fa-angle-double-right</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </div>
+          <v-card-actions class="pa-0">
+            <v-btn
+              color="primary"
+              dark
+              block
+              route
+              :href="'movie/' + kebabCase(item.title)"
+            >
+              <span class="mx-2">show details</span>
+              <v-icon>fa-angle-double-right</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import { kebabCase } from "lodash";
+
 export default {
   name: "Home",
   data: () => ({
-    apiKey: "ae8b2044b3cfca0fd7cf9a8f0708b51c",
     apiURL: "https://api.themoviedb.org/3/movie/popular?api_key=",
     testIMG: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
+    photosHost: "https://images.tmdb.org/t/p/w1280",
     list: [],
     searchedValue: "",
   }),
@@ -70,18 +76,21 @@ export default {
       return this.apiURL + this.apiKey + "&language=en-US&page=1";
     },
   },
+  methods: {
+    kebabCase: c => kebabCase(c),
+    getPoster(poster) {
+      if (poster) {
+        return this.photosHost + poster;
+      } else {
+        return this.testIMG;
+      }
+    },
+  },
   mounted() {
-    fetch(this.url)
-      .then(res => res.json())
-      .then(({ results }) => {
-        // filter adults
-        results = results.filter(el => !el.adult);
-        this.list = results;
-        console.log(results[0]);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.$store.dispatch("getPopularMovies").then(res => {
+      this.list = res;
+      console.log(res[0]);
+    });
   },
 };
 </script>

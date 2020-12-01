@@ -31,7 +31,17 @@ let links = [
     component: () =>
       import(
         /* webpackChunkName: "About" */
-        `@/views/About.vue`
+        "@/views/About.vue"
+      ),
+  },
+  {
+    hidden: true,
+    title: "Movie",
+    to: "/movie/:slug",
+    component: () =>
+      import(
+        /* webpackChunkName: "Movie" */
+        "@/views/Movie.vue"
       ),
   },
 ];
