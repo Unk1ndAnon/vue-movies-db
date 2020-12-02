@@ -1,6 +1,9 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+// import themovieDB library
+import tmdb from "tmdbv3";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -10,22 +13,12 @@ export default new Vuex.Store({
     posterHost: "https://images.tmdb.org/t/p/w1280",
     testIMG: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
   },
-  actions: {
-    getPopularMovies({ state: { API_KEY, API_BASE_URL } }) {
-      let n = 1;
-      return fetch(
-        `${API_BASE_URL}popular?api_key=${API_KEY}&language=en-US&page=${n}`,
-      )
-        .then(res => res.json())
-        .then(({ results }) => {
-          // filter adults
-          results = results.filter(el => !el.adult);
-          return results;
-        })
-        .catch(err => {
-          console.log(err);
-        });
+  getters: {
+    tmdb({ API_KEY }) {
+      return tmdb.init(API_KEY);
     },
+  },
+  actions: {
     getPoster({ state: { posterHost, testIMG } }, poster) {
       if (poster) {
         return posterHost + poster;

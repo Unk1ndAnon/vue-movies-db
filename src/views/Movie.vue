@@ -17,8 +17,10 @@ export default {
   created() {
     this.slug = this.$route.params.slug;
     this.slug = this.lowerCase(this.slug);
+
+    this.$store.getters.tmdb.search.movie(this.slug, (err, res) => {
+      console.log(res.results);
+    });
   },
 };
 </script>
-
-<style></style>

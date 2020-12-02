@@ -76,17 +76,20 @@ export default {
     kebabCase: c => kebabCase(c),
   },
   mounted() {
-    this.$store.dispatch("getPopularMovies").then(res => {
-      res.map(el => {
-        this.$store
-          .dispatch("getPoster", el.poster_path)
-          .then(fullPosterPath => {
-            el.poster = fullPosterPath;
-            this.list.push(el);
-          });
-      });
-
-      console.log(res[0]);
+    let n = 1;
+    this.$store.getters.tmdb.misc.popular(n, (err, res) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.results.map(el => {
+          this.$store
+            .dispatch("getPoster", el.poster_path)
+            .then(fullPosterPath => {
+              el.poster = fullPosterPath;
+              this.list.push(el);
+            });
+        });
+      }
     });
   },
 };
