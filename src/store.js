@@ -7,6 +7,8 @@ export default new Vuex.Store({
   state: {
     API_KEY: "ae8b2044b3cfca0fd7cf9a8f0708b51c",
     API_BASE_URL: "https://api.themoviedb.org/3/movie/",
+    posterHost: "https://images.tmdb.org/t/p/w1280",
+    testIMG: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
   },
   actions: {
     getPopularMovies({ state: { API_KEY, API_BASE_URL } }) {
@@ -23,6 +25,13 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err);
         });
+    },
+    getPoster({ state: { posterHost, testIMG } }, poster) {
+      if (poster) {
+        return posterHost + poster;
+      } else {
+        return testIMG;
+      }
     },
   },
 });

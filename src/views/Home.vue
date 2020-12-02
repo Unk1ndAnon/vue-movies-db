@@ -22,9 +22,13 @@
         lg="3"
       >
         <v-card class="mx-auto" elevation="5">
-          <v-img :height="300" :src="getPoster(item.poster_path)"> </v-img>
+          <v-img :height="300" :src="item.poster">
+            <v-overlay absolute>
+              <v-card-title color="primary">{{ item.title }}</v-card-title>
+            </v-overlay>
+          </v-img>
 
-          <v-card-title primary-title>{{ item.title }}</v-card-title>
+          <!-- <v-card-title primary-title>{{ item.title }}</v-card-title> -->
 
           <v-subheader>{{ item.release_date }}</v-subheader>
 
@@ -65,30 +69,23 @@ import { kebabCase } from "lodash";
 export default {
   name: "Home",
   data: () => ({
-    apiURL: "https://api.themoviedb.org/3/movie/popular?api_key=",
-    testIMG: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
-    photosHost: "https://images.tmdb.org/t/p/w1280",
     list: [],
     searchedValue: "",
   }),
-  computed: {
-    url() {
-      return this.apiURL + this.apiKey + "&language=en-US&page=1";
-    },
-  },
   methods: {
     kebabCase: c => kebabCase(c),
-    getPoster(poster) {
-      if (poster) {
-        return this.photosHost + poster;
-      } else {
-        return this.testIMG;
-      }
-    },
   },
   mounted() {
     this.$store.dispatch("getPopularMovies").then(res => {
-      this.list = res;
+      res.map(el => {
+        this.$store
+          .dispatch("getPoster", el.poster_path)
+          .then(fullPosterPath => {
+            el.poster = fullPosterPath;
+            this.list.push(el);
+          });
+      });
+
       console.log(res[0]);
     });
   },
