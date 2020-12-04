@@ -36,11 +36,12 @@
             <v-row align="center" class="mx-0">
               <v-rating
                 :value="item.vote_average"
+                :length="10"
                 color="amber"
                 dense
                 half-increments
                 readonly
-                size="14"
+                :size="14"
               ></v-rating>
             </v-row>
           </v-card-text>
