@@ -19,7 +19,22 @@
                       {{ item.label }}
                     </v-list-item-title>
                     <v-list-item-content class="caption">
-                      {{ item.content }}
+                      <template v-if="item.label === 'vote average'">
+                        <v-row align="center" class="mx-0">
+                          <v-rating
+                            :value="item.content"
+                            :length="10"
+                            color="amber"
+                            dense
+                            half-increments
+                            readonly
+                            :size="14"
+                          ></v-rating>
+                        </v-row>
+                      </template>
+                      <template v-else>
+                        {{ item.content }}
+                      </template>
                     </v-list-item-content>
                   </v-list-item-content>
                 </v-list-item>
