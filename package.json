@@ -39,5 +39,20 @@
     "vuetify-loader": "^1.3.0"
   },
   "license": "MIT",
-  "repository": "git@github.com:mohssineAboutaj/vue-vuetify-starter-with-router.git"
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mohssineAboutaj/vue-vuetify-starter-with-router.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mohssineAboutaj/vue-vuetify-starter-with-router/issues"
+  },
+  "homepage": "https://vue-movies-db.netlify.app/",
+  "keywords": [
+    "vue",
+    "vue-router",
+    "vuex",
+    "vuetify",
+    "vue movie",
+    "themoviedb"
+  ]
 }

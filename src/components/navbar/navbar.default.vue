@@ -44,7 +44,7 @@
       <v-toolbar-title v-text="title" />
       <v-spacer />
       <v-app-bar-nav-icon @click="switchTheme()">
-        <v-icon>fa-toggle-{{ darkMode ? "on" : "off" }}</v-icon>
+        <v-icon>{{ darkMode ? "fas" : "far" }} fa-moon</v-icon>
       </v-app-bar-nav-icon>
     </v-app-bar>
   </div>

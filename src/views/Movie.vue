@@ -24,7 +24,7 @@
                           <v-rating
                             :value="item.content"
                             :length="10"
-                            color="amber"
+                            color="primary"
                             dense
                             half-increments
                             readonly
@@ -68,13 +68,12 @@ export default {
 
     // get movie data
     this.$store.getters.tmdb.search.movie(this.slug, (err, res) => {
-      console.log(res.results[0]);
       // get data
       const data = res.results[0];
 
       // set poster
       this.$store
-        .dispatch("getPoster", data.poster_path)
+        .dispatch("getPosterFullPath", data.poster_path)
         .then(fullPosterPath => {
           this.poster = fullPosterPath;
         });

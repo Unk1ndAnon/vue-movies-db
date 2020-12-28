@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getPoster({ state: { posterHost, testIMG } }, poster) {
+    getPosterFullPath({ state: { posterHost, testIMG } }, poster) {
       if (poster) {
         return posterHost + poster;
       } else {

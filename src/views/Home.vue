@@ -13,6 +13,19 @@
     </v-row>
     <v-row class="justify-space-around">
       <v-col
+        v-show="showSkeletonLoader"
+        v-for="i in [1, 2, 3]"
+        :key="i"
+        cols="12"
+        xs="12"
+        sm="6"
+        md="4"
+        lg="3"
+      >
+        <v-skeleton-loader type="card"></v-skeleton-loader>
+      </v-col>
+      <v-col
+        v-show="!showSkeletonLoader"
         v-for="item in list"
         :key="item.id"
         cols="12"
@@ -44,13 +57,13 @@
       </v-col>
     </v-row>
     <v-pagination
-      v-if="!isEmpty(list)"
+      v-if="!isEmpty(list) && !showSkeletonLoader"
       :length="totalPages"
       v-model="page"
-      class="my-4"
+      class="my-8"
       circle
       total-visible="5"
-      @input="paginate"
+      @input="fetchData"
     ></v-pagination>
   </v-container>
 </template>
@@ -61,6 +74,7 @@ import { kebabCase, isEmpty } from "lodash";
 export default {
   name: "Home",
   data: () => ({
+    showSkeletonLoader: true,
     list: [],
     searchedValue: "",
     page: 1,
@@ -69,30 +83,36 @@ export default {
   methods: {
     kebabCase: c => kebabCase(c),
     isEmpty: c => isEmpty(c),
-    paginate: n => {
-      this.page = n;
-      this.fetchData(n);
-    },
     fetchData(p) {
       this.$store.getters.tmdb.misc.popular(p, (err, res) => {
         if (err) {
           console.log(err);
         } else {
-          this.totalPages = res.total_pages;
           this.list = [];
           res.results.map(el => {
             this.$store
-              .dispatch("getPoster", el.poster_path)
+              .dispatch("getPosterFullPath", el.poster_path)
               .then(fullPosterPath => {
                 el.poster = fullPosterPath;
                 this.list.push(el);
               });
           });
+          this.showSkeletonLoader = false;
+        }
+      });
+    },
+    setMaxPagination() {
+      this.$store.getters.tmdb.misc.popular(this.page, (err, res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          this.totalPages = res.total_pages;
         }
       });
     },
   },
   mounted() {
+    this.setMaxPagination();
     this.fetchData(this.page);
   },
 };
