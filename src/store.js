@@ -11,7 +11,7 @@ export default new Vuex.Store({
     API_KEY: "ae8b2044b3cfca0fd7cf9a8f0708b51c",
     API_BASE_URL: "https://api.themoviedb.org/3/movie/",
     posterHost: "https://images.tmdb.org/t/p/w1280",
-    testIMG: "https://cdn.vuetifyjs.com/images/cards/cooking.png",
+    testIMG: "http://placeimg.com/640/480/nature",
   },
   getters: {
     tmdb({ API_KEY }) {
@@ -19,7 +19,7 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    getPosterFullPath({ state: { posterHost, testIMG } }, poster) {
+    getPosterFullPath({ state: { posterHost, testIMG } }, poster = "") {
       if (poster) {
         return posterHost + poster;
       } else {

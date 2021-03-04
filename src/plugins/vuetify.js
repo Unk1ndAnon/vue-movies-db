@@ -7,6 +7,15 @@ import colors from "vuetify/es5/util/colors";
 
 Vue.use(Vuetify);
 
+const globalPalletteColors = {
+  primary: colors.blue.darken4,
+  accent: colors.blue.accent1,
+  error: colors.red.darken2,
+  info: colors.green.lighten1,
+  success: colors.green.accent4,
+  warning: colors.yellow.darken3,
+};
+
 export default new Vuetify({
   theme: {
     options: {
@@ -14,22 +23,12 @@ export default new Vuetify({
     },
     themes: {
       light: {
-        primary: colors.blue.darken4,
-        secondary: colors.green.darken4,
-        accent: colors.blue.accent1,
-        error: colors.red.darken2,
-        info: colors.green.lighten1,
-        success: colors.green.accent4,
-        warning: colors.yellow.darken3,
+        ...globalPalletteColors,
+        secondary: colors.grey.lighten3,
       },
       dark: {
-        primary: colors.secondary,
-        secondary: colors.green.darken4,
-        accent: colors.blue.accent1,
-        error: colors.red.darken2,
-        info: colors.green.lighten1,
-        success: colors.green.accent4,
-        warning: colors.yellow.darken3,
+        ...globalPalletteColors,
+        secondary: colors.grey.darken3,
       },
     },
   },

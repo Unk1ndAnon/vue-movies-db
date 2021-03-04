@@ -1,7 +1,7 @@
 <template>
-  <v-app dark class="main-app ">
+  <v-app dark class="main-app">
     <Navbar />
-    <v-main>
+    <v-main class="secondary">
       <router-view />
     </v-main>
     <Footer />

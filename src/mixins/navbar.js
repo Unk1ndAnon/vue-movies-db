@@ -19,7 +19,4 @@ module.exports.general = {
       console.log("dark mode: " + this.darkMode);
     },
   },
-  beforeMount() {
-    this.prominent = window.innerWidth < 650 ? true : false;
-  },
 };
