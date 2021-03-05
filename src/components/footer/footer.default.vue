@@ -11,7 +11,7 @@
       <v-col cols="2" md="1">
         <v-btn
           color="primary"
-          @click="$vuetify.goTo('.navbar-component')"
+          @click="$vuetify.goTo('#app')"
           bottom
           right
           fixed
